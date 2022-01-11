@@ -5,36 +5,43 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第一週 - 從函式拆解認識設計模式</title>
-  <style src="all.css"></style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+  <!-- JS -->
   <script type="module" src="all.js"></script>
 </head>
 <body>
   <div id="app">
-    <div class="container">
+    <div class="container py-3 row">
 
-      <div class="product">
+      <div class="product col-md-6">
         <h2>產品列表</h2>
-        <table>
+        <table class="table table-hover mt-4">
           <thead>
             <tr>
-              <th>產品名稱</th>
-              <th>原價</th>
-              <th>售價</th>
-              <th>是否啟用</th>
-              <th>查看細節</th>
+              <th width="150">產品名稱</th>
+              <th width="120">原價</th>
+              <th width="120">售價</th>
+              <th width="150">是否啟用</th>
+              <th width="120">查看細節</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>{{}}</th>
-              <th>{{}}</th>
-              <th>{{}}</th>
-              <th>
-                <span>啟用</span>
+              <th width="150">{{}}</th>
+              <th width="120">{{}}</th>
+              <th width="120">{{}}</th>
+              <th width="150">
+                <span class="text-success">啟用</span>
                 <span>未啟用</span>
               </th>
-              <th>
-                <button type="button">查看細節</button>
+              <th width="120">
+                <button type="button" class="btn btn-primary">查看細節</button>
               </th>
             </tr>
           </tbody>
@@ -42,32 +49,40 @@
         <p>目前有<span>{{}}</span>項產品</p>
       </div>
 
-      <div class="detail">
+      <div class="detail col-md-6">
         <h2>單一產品細節</h2>
         <template>
-          <div class="card">
-            <img src="" alt="產品圖">
-            <div class="card-content">
-              <div class="card-title">
+          <div class="card mb-3">
+            <img src="" alt="產品圖" class=".card-img-top primary-image">
+            <div class="card-body">
+              <h5 class="card-title">
                 {{}}
-                <span class="card-tag"></span>
+                <span class="badge bg-primary ms-2"></span>
+              </h5>
+              <p class="card-text">商品描述：{{}}</p>
+              <p class="card-text">商品內容：{{}}</p>
+              <div class="d-flex">
+                <p class="card-text me-2">{{}}</p>
+                <p class="card-text text-secondary">
+                  <del>{{}}</del>
+                </p>
+                {{}} / 元
               </div>
-              <p class="card-text">
-                {{}}
-              </p>
-              <p class="card-text">
-                <del>{{}}</del>{{}} / 元
-              </p>
             </div>
           </div>
           <template>
-            <img src="" alt="預覽圖">
+            <img src="" alt="預覽圖" class="images m-2">
           </template>
         </template>
-        <p>請選擇一個商品查看</p>
+        <p class="text-secondary">請選擇一個商品查看</p>
       </div>
 
     </div>
   </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 </body>
 </html>
