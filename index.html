@@ -4,15 +4,70 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>第一週 - 從函式拆解認識設計模式</title>
+  <style src="all.css"></style>
   <script type="module" src="all.js"></script>
 </head>
 <body>
-
   <div id="app">
-    {{message}}
+    <div class="container">
+
+      <div class="product">
+        <h2>產品列表</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>產品名稱</th>
+              <th>原價</th>
+              <th>售價</th>
+              <th>是否啟用</th>
+              <th>查看細節</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{}}</th>
+              <th>{{}}</th>
+              <th>{{}}</th>
+              <th>
+                <span>啟用</span>
+                <span>未啟用</span>
+              </th>
+              <th>
+                <button type="button">查看細節</button>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <p>目前有<span>{{}}</span>項產品</p>
+      </div>
+
+      <div class="detail">
+        <h2>單一產品細節</h2>
+        <template>
+          <div class="card">
+            <img src="" alt="產品圖">
+            <div class="card-content">
+              <div class="card-title">
+                {{}}
+                <span class="card-tag"></span>
+              </div>
+              <p class="card-text">
+                {{}}
+              </p>
+              <p class="card-text">
+                <del>{{}}</del>{{}} / 元
+              </p>
+            </div>
+          </div>
+          <template>
+            <img src="" alt="預覽圖">
+          </template>
+        </template>
+        <p>請選擇一個商品查看</p>
+      </div>
+
+    </div>
   </div>
-
-
 </body>
 </html>
