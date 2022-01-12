@@ -1,5 +1,3 @@
-
-
 // ESM
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js';
 
@@ -60,8 +58,9 @@ let products=[
 // 主程式碼
 const app = createApp({
   data(){
-
+    let detail={}
     return{
+      detail,
       products
     }
   }

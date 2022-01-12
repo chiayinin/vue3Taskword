@@ -17,64 +17,66 @@
 </head>
 <body>
   <div id="app">
-    <div class="container py-3 row ">
+    <div class="container py-3">
 
-      <div class="product col-md-6">
-        <h2>產品列表</h2>
-        <table class="table table-hover mt-4">
-          <thead>
-            <tr>
-              <th width="150">產品名稱</th>
-              <th width="120">原價</th>
-              <th width="120">售價</th>
-              <th width="150">是否啟用</th>
-              <th width="120">查看細節</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in products">
-              <th width="150">{{ item.title }}</th>
-              <th width="120">{{ item.origin_price }}</th>
-              <th width="120">{{ item.price }}</th>
-              <th width="150">
-                <span class="text-success" v-if="item.is_enabled === 1">啟用</span>
-                <span v-else>未啟用</span>
-              </th>
-              <th width="120">
-                <button type="button" class="btn btn-primary">查看細節</button>
-              </th>
-            </tr>
-          </tbody>
-        </table>
-        <p>目前有 <span>{{ products.length }}</span> 項產品</p>
-      </div>
+      <div colass="row">
+        <div class="product col-md-6">
+          <h2>產品列表</h2>
+          <table class="table table-hover mt-4">
+            <thead>
+              <tr>
+                <th width="150">產品名稱</th>
+                <th width="120">原價</th>
+                <th width="120">售價</th>
+                <th width="150">是否啟用</th>
+                <th width="120">查看細節</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in products" v-bind:key="item.id">
+                <th width="150">{{ item.title }}</th>
+                <th width="120">{{ item.origin_price }}</th>
+                <th width="120">{{ item.price }}</th>
+                <th width="150">
+                  <span class="text-success" v-if="item.is_enabled === 1">啟用</span>
+                  <span v-else>未啟用</span>
+                </th>
+                <th width="120">
+                  <button v-on:click="detail = item" type="button" class="btn btn-primary">查看細節</button>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+          <p>目前有 <span>{{ products.length }}</span> 項產品</p>
+        </div>
+    </div>
 
       <div class="detail col-md-6">
         <h2>單一產品細節</h2>
-        <template>
+        <template v-if="detail.title">
           <div class="card mb-3">
-            <img src="" alt="產品圖" class=".card-img-top primary-image">
+            <img v-bind:src="detail.imageUrl" alt="產品圖" class=".card-img-top primary-image">
             <div class="card-body">
               <h5 class="card-title">
-                {{}}
+                {{ detail.title }}
                 <span class="badge bg-primary ms-2"></span>
               </h5>
-              <p class="card-text">商品描述：{{}}</p>
-              <p class="card-text">商品內容：{{}}</p>
+              <p class="card-text">商品描述：{{ detail.description }}</p>
+              <p class="card-text">商品內容：{{ detail.content }}</p>
               <div class="d-flex">
-                <p class="card-text me-2">{{}}</p>
+                <p class="card-text me-2">{{ detail.origin_price }}</p>
                 <p class="card-text text-secondary">
-                  <del>{{}}</del>
+                  <del>{{ detail.price }}</del>
                 </p>
-                {{}} / 元
+                {{ detail.unit }} / 元
               </div>
             </div>
           </div>
-          <template>
-            <img src="" alt="預覽圖" class="images m-2">
+          <template v-for="imgShow in detail.imagesUrl" v-bind:key="imgShow.id">
+            <img v-if="imgShow" v-bind:src="imgShow" alt="預覽圖" class="images m-2">
           </template>
         </template>
-        <p class="text-secondary">請選擇一個商品查看</p>
+        <p v-else class="text-secondary">請選擇一個商品查看</p>
       </div>
 
     </div>
