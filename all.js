@@ -1,3 +1,8 @@
+
+
+// ESM
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js';
+
 // 產品資料格式
 let products=[
   {
@@ -22,7 +27,7 @@ let products=[
     content: "尺寸：6寸",
     description: "蜜蜂蜜蛋糕，夾層夾上酸酸甜甜的檸檬餡，清爽可口的滋味讓人口水直流！",
     id: "-McJ-VvcwfN1_Ye_NtVA",
-    is_enabled: 16,
+    is_enabled: 1,
     origin_price: 1000,
     price: 900,
     title: "蜂蜜檸檬蛋糕",
@@ -52,15 +57,12 @@ let products=[
   }
 ]
 
-// ESM
-import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js';
-
-
+// 主程式碼
 const app = createApp({
   data(){
-    const message="Hello world!";
+
     return{
-      message
+      products
     }
   }
 })
