@@ -3,4 +3,4 @@
 ###
   [目錄]( http://chiayinin.com/vue3Taskword/) <br>
   [第一週 - 從函式拆解認識設計模式]( http://chiayinin.com/vue3Taskword/Week001/index.html) <br>
-  [第二週-介接一個API]( http://chiayinin.com/vue3Taskword/week002/index.html)  
+  [第二週 - 介接一個API]( http://chiayinin.com/vue3Taskword/week002/index.html)  
