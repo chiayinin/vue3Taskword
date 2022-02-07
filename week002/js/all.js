@@ -22,7 +22,7 @@ const app = createApp ({
       axios.post(`${this.apiUrl}/admin/signin`, this.user)
       // 成功
       .then(res=>{
-        console.log(res)
+        // console.log(res)
 
         const {token, expired}=res.data;
         document.cookie = `chiayininApi=${token}; expires=${new Date(expired)};`;
