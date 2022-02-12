@@ -17,7 +17,7 @@ const app = createApp({
     checkLogin(){
       axios.post(`${this.apiUrl}/api/user/check`)
       .then(res=>{
-        // console.log(res)
+        console.log(res)
         this.getProducts()
       })
       .catch(error=>{
