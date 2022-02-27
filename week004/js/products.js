@@ -1,4 +1,8 @@
-import {createApp} from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.31/vue.esm-browser.min.js';
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.31/vue.esm-browser.min.js';
+import pagination from '../components/pagination.js';
+import modalProduct from '../components/modalProduct.js';
+import modalDelProduct from '../components/modalDelProduct.js';
+
 
 let productModal = {};
 let delProductModal = {};
@@ -12,8 +16,15 @@ const app = createApp({
       tempProduct: {
         imagesUrl:[]
       },
-      isNew: false
+      isNew: false,
+      pagination: {}
     }
+  },
+
+  components:{
+    pagination,
+    modalProduct,
+    modalDelProduct
   },
 
   methods:{
@@ -34,10 +45,11 @@ const app = createApp({
     },
 
     // 取得產品列表
-    getProducts(){
-      axios.get(`${this.apiUrl}/api/${this.apiPath}/admin/products/all`)
+    getProducts(page = 1){
+      axios.get(`${this.apiUrl}/api/${this.apiPath}/admin/products/?page=${page}`)
       .then(response => {
         this.products = response.data.products;
+        this.pagination = response.data.pagination;
       })
       .catch(error => {
         alert("匯入產品列表資料失敗。");
@@ -89,7 +101,7 @@ const app = createApp({
       let url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
       let method = 'delete';
 
-      axios[method](url, { data:this.tempProduct })
+      axios[method](url)
       .then(response => {
         console.log(response);
         this.getProducts();
