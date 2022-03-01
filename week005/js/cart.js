@@ -8,7 +8,8 @@ const app = createApp({
   data(){
     return{
       cartData: {},
-      products: []
+      products: [],
+      productId: ''
     };
   },
 
@@ -22,6 +23,11 @@ const app = createApp({
       .catch(error=>{
         console.dir(error);
       });
+    },
+
+    openProductModal(id){
+      this.productId = id;
+      this.$refs.productModal.openModal();
     }
   },
 
@@ -29,6 +35,42 @@ const app = createApp({
     this.getProducts();
   }
 });
+
+app.component('product-modal', {
+  props:['id'],
+  template: '#userProductModal',
+  data(){
+    return{
+      modal: '',
+      product: []
+    }
+  },
+  watch: {
+    id(){
+      this.getProducts();
+    }
+  },
+  methods:{
+    openModal(){
+      this.modal.show();
+    },
+    getProducts(){
+      axios.get(`${apiUrl}/api/${apiPath}/product/${this.id}`)
+      .then(response=>{
+        console.log(response);
+        this.product = response.data.product;
+      })
+      .catch(error=>{
+        console.dir(error);
+      });
+    }
+  },
+  mounted(){
+    this.modal = new bootstrap.Modal(this.$refs.modal, {
+      keyboard: true
+    });
+  }
+})
 
 window.addEventListener("DOMContentLoaded", function () {
   app.mount('#app');
