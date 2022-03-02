@@ -59,6 +59,20 @@ const app = createApp({
       .catch(error=>{
         console.dir(error);
       });
+    },
+
+    removeCartItem(id){
+      this.isLoadingItem = id;
+
+      axios.delete(`${apiUrl}/api/${apiPath}/cart/${id}`)
+      .then(response=>{
+        console.log(response);
+        this.getCart();
+        this.isLoadingItem = '';
+      })
+      .catch(error=>{
+        console.dir(error);
+      });
     }
   },
 
