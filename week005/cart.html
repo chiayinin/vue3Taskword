@@ -53,12 +53,13 @@
               </td>
               <td>
                 <div class="btn-group btn-group-sm">
-                  <button type="button" class="btn btn-outline-secondary" @click="openProductModal(item.id)">
-                    <i class="fas fa-spinner fa-pulse"></i>
+                  <button type="button" class="btn btn-outline-secondary" @click="openProductModal(item.id)" :disabled="isLoadingItem === item.id">
+                    <i v-show="isLoadingItem === item.id" class="fas fa-spinner fa-pulse"></i>
                     查看更多
                   </button>
-                  <button type="button" class="btn btn-outline-danger">
-                    <i class="fas fa-spinner fa-pulse"></i>
+                  <button type="button" class="btn btn-outline-danger" @click="addToCart(item.id)"
+                  :disabled="isLoadingItem === item.id">
+                    <i v-show="isLoadingItem === item.id" class="fas fa-spinner fa-pulse"></i>
                     加到購物車
                   </button>
                 </div>
@@ -66,6 +67,7 @@
             </tr>
           </tbody>
         </table>
+        {{ cartData }}
         <!-- 購物車列表 -->
         <div class="text-end">
           <button class="btn btn-outline-danger" type="button">清空購物車</button>

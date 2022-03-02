@@ -9,7 +9,8 @@ const app = createApp({
     return{
       cartData: {},
       products: [],
-      productId: ''
+      productId: '',
+      isLoadingItem: ''
     };
   },
 
@@ -28,11 +29,42 @@ const app = createApp({
     openProductModal(id){
       this.productId = id;
       this.$refs.productModal.openModal();
+    },
+
+    getCart(){
+      axios.get(`${apiUrl}/api/${apiPath}/cart`)
+      .then(response=>{
+        console.log(response);
+        this.cartData = response.data.data;
+      })
+      .catch(error=>{
+        console.dir(error);
+      });
+    },
+
+    addToCart(id, qty=1){
+      const data={
+        product_id: id,
+        qty
+      };
+
+      this.isLoadingItem = id;
+
+      axios.post(`${apiUrl}/api/${apiPath}/cart`, { data })
+      .then(response=>{
+        console.log(response);
+        this.getCart();
+        this.isLoadingItem = '';
+      })
+      .catch(error=>{
+        console.dir(error);
+      });
     }
   },
 
   mounted(){
     this.getProducts();
+    this.getCart();
   }
 });
 
