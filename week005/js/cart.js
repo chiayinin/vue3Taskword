@@ -61,6 +61,25 @@ const app = createApp({
       });
     },
 
+    updateCartItem(item){
+      const data={
+        product_id: item.id,
+        qty: item.qty
+      };
+
+      this.isLoadingItem = item.id;
+
+      axios.put(`${apiUrl}/api/${apiPath}/cart/${item.id}`, { data })
+      .then(response=>{
+        console.log(response);
+        this.getCart();
+        this.isLoadingItem = '';
+      })
+      .catch(error=>{
+        console.dir(error);
+      });
+    },
+
     removeCartItem(id){
       this.isLoadingItem = id;
 
