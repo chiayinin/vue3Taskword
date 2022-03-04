@@ -54,6 +54,7 @@ const app = createApp({
       .then(response=>{
         console.log(response);
         this.getCart();
+        this.$refs.productModal.closeModal();
         this.isLoadingItem = '';
       })
       .catch(error=>{
@@ -107,7 +108,8 @@ app.component('product-modal', {
   data(){
     return{
       modal: '',
-      product: []
+      product: [],
+      qty: 1
     }
   },
   watch: {
@@ -119,6 +121,9 @@ app.component('product-modal', {
     openModal(){
       this.modal.show();
     },
+    closeModal(){
+      this.modal.hide();
+    },
     getProducts(){
       axios.get(`${apiUrl}/api/${apiPath}/product/${this.id}`)
       .then(response=>{
@@ -128,6 +133,10 @@ app.component('product-modal', {
       .catch(error=>{
         console.dir(error);
       });
+    },
+    addToCart(){
+      console.log(this.qty);
+      this.$emit('add-cart', this.product.id, this.qty)
     }
   },
   mounted(){
