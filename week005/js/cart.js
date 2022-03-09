@@ -1,24 +1,43 @@
-// ESM
-import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.31/vue.esm-browser.min.js';
-
 const apiUrl = 'https://vue3-course-api.hexschool.io/v2';
 const apiPath = 'chiayinin-api';
 
-const app = createApp({
+// VeeValidation
+const { defineRule, Form, Field, ErrorMessage, configure } = VeeValidate;
+const { required, email, min, max } = VeeValidateRules;
+const { localize, loadLocaleFromURL } = VeeValidateI18n;
+
+defineRule('required', required);
+defineRule('email', email);
+defineRule('min', min);
+defineRule('max', max);
+
+loadLocaleFromURL('https://unpkg.com/@vee-validate/i18n@4.1.0/dist/locale/zh_TW.json');
+
+configure({ // 用來做一些設定
+  generateMessage: localize('zh_TW'), //啟用 locale
+});
+
+const app = Vue.createApp({
   data(){
     return{
-      cartData: {},
+      cartData: {
+        carts: []
+      },
       products: [],
       productId: '',
       isLoadingItem: ''
     };
+  },
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
   },
 
   methods:{
     getProducts(){
       axios.get(`${apiUrl}/api/${apiPath}/products/all`)
       .then(response=>{
-        console.log(response);
         this.products = response.data.products;
       })
       .catch(error=>{
@@ -34,7 +53,6 @@ const app = createApp({
     getCart(){
       axios.get(`${apiUrl}/api/${apiPath}/cart`)
       .then(response=>{
-        console.log(response);
         this.cartData = response.data.data;
       })
       .catch(error=>{
@@ -52,7 +70,6 @@ const app = createApp({
 
       axios.post(`${apiUrl}/api/${apiPath}/cart`, { data })
       .then(response=>{
-        console.log(response);
         this.getCart();
         this.$refs.productModal.closeModal();
         this.isLoadingItem = '';
@@ -72,7 +89,6 @@ const app = createApp({
 
       axios.put(`${apiUrl}/api/${apiPath}/cart/${item.id}`, { data })
       .then(response=>{
-        console.log(response);
         this.getCart();
         this.isLoadingItem = '';
       })
@@ -86,13 +102,23 @@ const app = createApp({
 
       axios.delete(`${apiUrl}/api/${apiPath}/cart/${id}`)
       .then(response=>{
-        console.log(response);
         this.getCart();
         this.isLoadingItem = '';
       })
       .catch(error=>{
         console.dir(error);
       });
+    },
+
+    removeAllCarts(){
+      axios.delete(`${apiUrl}/api/${apiPath}/carts/`, this.data )
+      .then(response=>{
+        console.log(response);
+        this.getCart();
+      })
+      .catch(error=>{
+        console.dir(error);
+      })
     }
   },
 
@@ -127,7 +153,6 @@ app.component('product-modal', {
     getProducts(){
       axios.get(`${apiUrl}/api/${apiPath}/product/${this.id}`)
       .then(response=>{
-        console.log(response);
         this.product = response.data.product;
       })
       .catch(error=>{
@@ -135,7 +160,6 @@ app.component('product-modal', {
       });
     },
     addToCart(){
-      console.log(this.qty);
       this.$emit('add-cart', this.product.id, this.qty)
     }
   },
