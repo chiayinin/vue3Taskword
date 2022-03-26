@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkweek006"]=self["webpackChunkweek006"]||[]).push([[915],{915:function(e,n,r){r.r(n),r.d(n,{default:function(){return k}});var u=r(252);function t(e,n){return(0,u.wg)(),(0,u.iD)("h2",null,"後臺優惠券表")}var c=r(744);const a={},f=(0,c.Z)(a,[["render",t]]);var k=f}}]);
+//# sourceMappingURL=915.dcde9674.js.map

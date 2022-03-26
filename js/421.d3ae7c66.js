@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkweek006"]=self["webpackChunkweek006"]||[]).push([[421],{421:function(e,n,r){r.r(n),r.d(n,{default:function(){return k}});var u=r(252);function t(e,n){return(0,u.wg)(),(0,u.iD)("h2",null,"後臺產品列表")}var c=r(744);const a={},f=(0,c.Z)(a,[["render",t]]);var k=f}}]);
+//# sourceMappingURL=421.d3ae7c66.js.map
