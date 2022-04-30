@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,9 +13,8 @@
     <link rel="stylesheet" href="./css/login.css">
     <!-- JS -->
     <script src="./js/login.js" type="module"></script>
-    <!-- Axios CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
   </head>
+
   <body>
     <div id="app">
       <div class="container">
@@ -23,10 +23,11 @@
             請先登入
           </h1>
           <div class="col-8">
-            <form id="form" class="form-signin" @submit.prevent="login">
+            <form id="form" class="form-signin" @submit.prevent="getLogin">
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="username"
-                  placeholder="name@example.com" v-model="user.username" required autofocus>
+                  placeholder="name@example.com"
+                  v-model="user.username" required autofocus>
                 <label for="username">Email address</label>
               </div>
               <div class="form-floating">
