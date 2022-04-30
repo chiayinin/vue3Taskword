@@ -5,3 +5,5 @@
   [第一週 - 從函式拆解認識設計模式]( http://chiayinin.com/vue3Taskword/Week001/index.html) <br>
   [第二週 - 介接一個API]( http://chiayinin.com/vue3Taskword/week002/index.html) <br>
   [第三週 - Vue 起步走之產品列表]( http://chiayinin.com/vue3Taskword/week003/login.html) <br>
+  [第四週 - 元件化]( http://chiayinin.com/vue3Taskword/week004/login.html) <br>
+  [第五週 - 表單驗證]( http://chiayinin.com/vue3Taskword/week005/cart.html) <br>
