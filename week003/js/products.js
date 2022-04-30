@@ -1,5 +1,5 @@
 // 引入 ESM
-import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.33/vue.esm-browser.prod.min.js';
+import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js";
 
 // 定義變數
 let productModal = null;
