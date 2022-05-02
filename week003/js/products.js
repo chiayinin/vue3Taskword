@@ -1,112 +1,113 @@
-// 導入 ESM
-import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
+// 引入 ESM
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.33/vue.esm-browser.prod.min.js';
 
-let productModal = {};
-let delProductModal = {};
+// 定義變數
+let productModal = null;
+let deleteModal = null;
 
-// create 實體
-const app=createApp({
+
+const app = createApp({
   data(){
     return{
-      apiUrl:'https://vue3-course-api.hexschool.io/v2',
-      apiPath:'chiayinin-api',
-      products:[],
-      temp:{
-        imagesUrl:[]
-      },
-      isNew:ture
+      apiUrl: 'https://vue3-course-api.hexschool.io/v2/',
+      apiPath: 'chiayinin-api',
+      newProduct: false,
+      products: [],
+      tempProduct: {
+        imagesUrl: []
+      }
     }
   },
-
   methods:{
-    // 確認是否登入
     checkLogin(){
-      axios.post(`${this.apiUrl}/api/user/check`)
-      .then(response=>{
-        console.log(response);
-        this.getProducts()
+      axios.post(`${this.apiUrl}api/user/check`)
+      .then(res => {
+        console.log(res);
+        this.getProducts();
       })
-      .catch(error=>{
+      .catch(error => {
         console.dir(error)
-        alert("您尚未登入。")
-        window.location.href = 'login.html'
+        window.location = 'login.html'
       })
     },
-
-    // 取得產品列表
     getProducts(){
-      axios.get(`${this.apiUrl}/api/${this.apiPath}/admin/products/all`)
-      .then(response=>{
-        this.products = response.data.products;
+      axios.get(`${this.apiUrl}api/${this.apiPath}/admin/products`)
+      .then(res => {
+        console.log(res)
+        this.products = res.data.products;
       })
-      .catch(error=>console.dir(error))
+      .catch(error => {
+        console.dir(error)
+      })
     },
-
-    // 打開Modal
-    openModal(status, product){
-      if(status === 'inNew'){
-        this.temp = {
-          imagesUrl:[]
-        }
-        productModal.show();
-        this.isNew = ture;
-      }else if(status === 'edit'){
-          this.temp = {...product}
-          productModal.show();
-          this.isNew = false;
-      }else if(status === 'delete'){
-        delproductModal.show();
-        this.temp = {...product};
-      }
-    },
-
-    // 新增
     updateProduct(){
-      let url = `${this.apiUrl}/api/${this.apiPath}/admin/product`;
-      let method = 'post';
+      let url = `${this.apiUrl}api/${this.apiPath}/admin/product`;
+      let method = 'post'
 
-      if(!this.isNew){
-        url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.temp.id}`;
+      if(!this.newProduct){
+        url = `${this.apiUrl}api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
         method = 'put';
-      }
+      };
 
-      axios[method](url, {data: this.temp})
-      .then(response=>{
-        this.getProducts();
+      axios[method](url, { data: this.tempProduct })
+      .then( res => {
+        alert(res.data.message);
         productModal.hide();
-      })
-      .catch(error=>alert("新增品項錯誤。"))
-    },
-
-    // 刪除
-    delProduct(){
-      let url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.temp.id}`;
-
-      axios.delete(url)
-      .then(response=>{
         this.getProducts();
-        delproductModal.hide();
       })
-      .catch(error=>alert("新增品項錯誤。"))
+      .catch(error => {
+        alert(error.data.message);
+      })
+    },
+    deleteProduct(){
+      let url = `${this.apiUrl}api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
+      let method = 'delete'
+
+      axios[method](url)
+      .then( res => {
+        alert(res.data.message);
+        deleteModal.hide();
+        this.getProducts();
+      })
+      .catch(error => {
+        alert(error.data.message);
+      })
+    },
+    openModal(state, item){
+      if(state === 'new'){
+        this.tempProduct = {
+          imagesUrl: []
+        };
+        this.newProduct = true;
+        productModal.show();
+      }else if(state === 'edit'){
+        this.tempProduct = {...item};
+        this.newProduct = false;
+        productModal.show();
+        this.imagesUrl = this.tempProduct.imagesUrl? this.tempProduct.imagesUrl : [] ;
+      }else if(state === 'delete'){
+        this.tempProduct = {...item};
+        deleteModal.show();
+      };
+    },
+    createImage(){
+      this.tempProduct.imagesUrl = [];
+      this.tempProduct.imagesUrl.push('');
     }
-
   },
-
   mounted(){
-    const myToken = document.cookie.replace(/(?:(?:^|.*;\s*)chiayininApi\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    // 取得 token 和驗證
+    // Token的內容加到headers裡面成為每次axios發送後的預設值
+    let myToken = document.cookie.replace(/(?:(?:^|.*;\s*)userToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     axios.defaults.headers.common['Authorization'] = myToken;
-    // 檢查是否登入
+
     this.checkLogin();
 
-    // 傳遞Modal
-    productModal = new bootstrap.Modal(document.getElementById('productModal'), {
-      keyboard: false
-    });
-    delproductModal = new bootstrap.Modal(document.getElementById('delproductModal'), {
-      keyboard: false
-    });
+    // modal 定義
+    productModal = new bootstrap.Modal(document.getElementById('productModal'), {keyboard: false})
+    deleteModal = new bootstrap.Modal(document.getElementById('delProductModal'), {keyboard: false})
   }
-});
+})
 
 window.addEventListener('DOMContentLoaded', function(){
   app.mount('#app');
